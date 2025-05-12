@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="admin-lte">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/client/node_modules/admin-lte/adminlte-v4.0.0-beta3.zip!/" />
+      <root url="jar://$PROJECT_DIR$/client/node_modules/admin-lte/adminlte-v4.0.0-beta1-with-dist.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

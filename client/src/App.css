@@ -1,0 +1,210 @@
+.chatCard {
+  height: 24rem;
+  width: 100%;
+  border: 1px solid black;
+  border-radius:  5px;
+  background-color: #f4f6f9;
+  display: flex;
+  box-shadow: 3px 3px 3px 3px grey;
+  border-color: #f4f6f9;
+}
+
+.header{
+  height: 12%;
+  width: 100%;
+   border-bottom: 2px solid black;
+   background-color: #f4f6f9;
+   border-color: #f4f6f9;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  /* background-color: aqua; */
+  background-color:#343a40;
+ border-top-left-radius: 5px;
+ 
+}
+
+
+
+.header span{
+  
+  font-weight: bolder;
+  font-size: 100%;
+  color:#e6e9ec;
+}
+
+.c1 {
+  height: 100%;
+  width: 20%;
+  /* padding: 7px; */
+  border-right: 1px solid black;
+
+  overflow: auto;
+}
+
+.c1::-webkit-scrollbar{
+  display: none;
+}
+
+
+.c1-users{
+  flex-grow: 1;      /* Allows it to take available space */
+  overflow-y: auto; 
+  margin-left: 4%;
+}
+
+/* .c1-users::-webkit-scrollbar {
+  display: none;
+} */
+
+
+.uc {
+  height: 50px;
+  width: 98%;
+  margin-bottom: 3px;
+  /* border-right: 1px solid black; */
+  /* border: 1px solid black; */
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  overflow: auto;
+ 
+}
+
+
+
+.uc:hover {
+  background-color: #343a40;
+  color: white;
+  /* color: wheat; */
+  cursor: pointer;
+}
+
+.uc:current{
+  background-color: black;
+}
+
+.uc1 {
+  height: 40px;
+  width: 25%;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-left: 1px;
+  margin-right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: black;
+  box-shadow: 2px 2px  rgb(228, 226, 226);
+  overflow: auto;
+  border-color: #f4f6f9;
+}
+
+
+.c2{
+  height: 100%;
+  width: 100%;
+
+}
+
+
+.c2-header{
+ height: 12%;
+ width: 100%;
+ /* border-bottom: 1px solid black; */
+ background-color:   #343a40;
+ border-bottom: 2px solid black;
+ border-color: #f4f6f9;
+ border-top-right-radius: 5px;
+ display:flex;
+ align-items: center;
+ justify-content: center;
+ gap:10px;
+ 
+}
+
+.c2-header span{
+  float: right;
+  color: white;
+  font-size: 100%;
+}
+
+
+.c2-message{
+  height: 76%;
+  width: 100%;
+  overflow: auto;
+}
+
+.c2-message::-webkit-scrollbar {
+  display: none;
+}
+
+.c2-send{
+  height: 12%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  
+}
+
+.c2-send input{
+  margin-left: 0.5%;
+  height: 85%;
+  width: 95%;
+  border-radius: 10px;
+  outline: none;
+}
+
+.i2{
+  width: 10%;
+}
+
+
+
+.c2-send button{
+  height: 85%;
+  margin-right: 0.2%;
+  border-radius: 11%;
+  border-color: #343a40;
+  background-color: #343a40;
+}
+
+.dropdown-menu {
+  position: absolute;
+  inset: auto auto 0px 0px;
+  margin: 0px;
+  transform: translate(0px, -40px);
+}
+
+/* Spinner.css */
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%; /* Full page height */
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ddd;
+  border-top: 5px solid #4F46E5; /* Indigo shade */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.CNI{
+  margin-top: 50rem;
+}
