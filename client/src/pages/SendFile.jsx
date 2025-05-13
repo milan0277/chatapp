@@ -78,7 +78,7 @@ const SendFile = () => {
                         </div>
                     </div>
                     <div>
-                        <button className='btn-danger mt-2'>
+                        <button className='btn btn-danger mt-1'>
                         <a  href={url}  download="format.csv" className='text-white'>
                             Download Format
                         </a>

@@ -180,46 +180,50 @@ const Chat = () => {
 
 
     const startRecording = async () => {
-        setShow(true)
+        setShow(true);
+
+        // Clear previous chunks before starting a new recording
+        audioChunks.current = [];
+
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            console.log("stream at startRecording",stream)
+            console.log("stream at startRecording", stream);
+
             mediaRecorder.current = new MediaRecorder(stream);
-            console.log("mediaRecorder at startRecording",mediaRecorder)
+            console.log("mediaRecorder at startRecording", mediaRecorder);
+
             mediaRecorder.current.ondataavailable = (event) => {
                 audioChunks.current.push(event.data);
             };
 
-            console.log("audioBlob before inserting blob",audioBlob)
             mediaRecorder.current.onstop = () => {
                 const audioBlob = new Blob(audioChunks.current, { type: "audio/wav" });
-                console.log("audioBLob :",audioBlob)
+                console.log("audioBlob:", audioBlob);
                 setAudioBlob(audioBlob);
 
                 // Create an audio preview
                 const audioURL = URL.createObjectURL(audioBlob);
-                console.log("audioURL :",audioURL)
+                console.log("audioURL:", audioURL);
                 audioRef.current.src = audioURL;
             };
+
             mediaRecorder.current.start();
             setRecording(true);
         } catch (error) {
             console.error("Error accessing microphone:", error);
-            toast.error("NotFoundError: Requested device not found")
-            setShow(false)
-
+            toast.error("NotFoundError: Requested device not found");
+            setShow(false);
         }
     };
 
-    // Stop Recording
     const stopRecording = () => {
         if (mediaRecorder.current) {
             mediaRecorder.current.stop();
             setRecording(false);
-            setAudioBlob(null)
-            alert("recording stopped")
+            // alert("Recording stopped");
         }
     };
+
 
 
     const deleteMessage = async (mId) => {
@@ -254,7 +258,7 @@ const Chat = () => {
                     {
                         data?.map((item, index) => {
                             return <div className='uc' key={index} onClick={() => handleSet(item)}><div className='uc1'>{item?.name?.toUpperCase()?.split("")[0]}</div><div> <b>{item?.name}</b></div> </div>
-                        })   
+                        })
                     }
                 </div>
             </div>
@@ -300,7 +304,7 @@ const Chat = () => {
                                             )}{mess?.audioname ?
                                                 <audio src={`${process.env.REACT_APP_API_URL}loginsystem/message/api/getaudio/${mess?.audioname}`} controls /> : ""}<TiDeleteOutline onClick={() => deleteMessage(mess?._id)} />
 
-                                        </div> 
+                                        </div>
                                     </>
                                 ) :
                                     (
@@ -319,14 +323,6 @@ const Chat = () => {
 
                             })
                     }
-                    {/* {
-                        typingShow?
-                        <Spinner animation="border" role="status" style={{marginLeft:"50%"}}>
-                        <span className="visually-hidden">typing..</span>
-                      </Spinner>
-                      :
-                      ""
-                    } */}
                 </div>
                 {
                     receiverId ? <div className='c2-send'>

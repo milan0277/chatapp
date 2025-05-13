@@ -3,9 +3,11 @@ import Card from 'react-bootstrap/Card';
 import { State } from 'country-state-city';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import Select from 'react-select';
 
 const Df = () => {
     const states = State.getStatesOfCountry("IN");
+    const stateOptions = states.map((s) => ({ label: s.name, value: s.name }));
 
     const [sections, setSections] = useState([
         {
@@ -68,6 +70,12 @@ const Df = () => {
     const handleSubmit = async () => {
         let isValid = true;
         const newErrors = {};
+        document.querySelectorAll(".fgf").forEach(el => {
+            el.style.marginBottom = '1.5rem';
+        });
+        document.querySelectorAll(".rmve").forEach(el => {
+            el.style.marginBottom = '1.5rem';
+        });
 
         sections.forEach((section, sIndex) => {
             if (!section.name.trim()) {
@@ -93,14 +101,14 @@ const Df = () => {
 
         setErrors(newErrors);
 
-        if(isValid){
+        if (isValid) {
             try {
                 const res = await axios.post(`http://localhost:5000/loginsystem/api/paraadd`, sections, { withCredentials: true });
-    
+
                 if (res.status === 201) {
                     toast.success(res?.data?.message);
                 }
-    
+
                 setSections([
                     {
                         id: 1,
@@ -115,20 +123,14 @@ const Df = () => {
                 toast.error(err?.message);
             }
         }
-    
-        
-       
-
-       
     };
 
     return (
-        <div className="container mt-4">
+        <div className="container col-12">
             <div className="card">
                 <div className="card-header bg-info text-white">
                     <h3 className="card-title">New Sheet</h3>
                 </div>
-
                 <div className="card-body">
                     {sections.map((section, sectionIndex) => (
                         <React.Fragment key={section.id}>
@@ -137,6 +139,7 @@ const Df = () => {
                                     <div className="row g-3 align-items-end">
                                         <div className="col-md-4">
                                             <label className="form-label">Name</label>
+
                                             <input
                                                 type='text'
                                                 className={`form-control ${errors[`name-${sectionIndex}`] ? 'is-invalid' : ''}`}
@@ -145,7 +148,7 @@ const Df = () => {
                                                 onChange={(e) => handleNameChange(sectionIndex, e.target.value)}
                                             />
                                             {errors[`name-${sectionIndex}`] && (
-                                                <div className="invalid-feedback">{errors[`name-${sectionIndex}`]}</div>
+                                                <span className="invalid-feedback">{errors[`name-${sectionIndex}`]}</span>
                                             )}
                                         </div>
                                         <div className="col-md-4">
@@ -158,13 +161,15 @@ const Df = () => {
                                                 onChange={(e) => handleAgeChange(sectionIndex, e.target.value)}
                                             />
                                             {errors[`age-${sectionIndex}`] && (
-                                                <div className="invalid-feedback">{errors[`age-${sectionIndex}`]}</div>
+                                                <span className="invalid-feedback">{errors[`age-${sectionIndex}`]}</span>
                                             )}
                                         </div>
-                                        <div className="col-md-4">
+                                        <div className="col-md-4  fgf">
                                             <button
                                                 onClick={() => addField(sectionIndex)}
-                                                className="btn btn-success mt-4 w-100">
+                                                className="btn btn-success w-100"
+                                                style={{ marginTop: '0rem' }}
+                                            >
                                                 Add Field
                                             </button>
                                         </div>
@@ -178,20 +183,23 @@ const Df = () => {
                                         <div className="row g-3 align-items-end">
                                             <div className="col-md-4">
                                                 <label className="form-label">State</label>
-                                                <select
-                                                    className={`form-select ${errors[`state-${sectionIndex}-${fieldIndex}`] ? 'is-invalid' : ''}`}
-                                                    value={field.state}
-                                                    onChange={(e) => handleFieldChange(sectionIndex, fieldIndex, "state", e.target.value)}
-                                                >
-                                                    <option value="">Select State</option>
-                                                    {states?.map((arrElement, index) => (
-                                                        <option key={index} value={arrElement?.name}>
-                                                            {arrElement?.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
+                                                <Select
+                                                    options={stateOptions}
+                                                    value={
+                                                        field.state
+                                                            ? { label: field.state, value: field.state }
+                                                            : null
+                                                    }
+                                                    onChange={(selected) =>
+                                                        handleFieldChange(sectionIndex, fieldIndex, "state", selected?.value || "")
+                                                    }
+                                                    className={errors[`state-${sectionIndex}-${fieldIndex}`] ? 'is-invalid' : ''}
+                                                    placeholder="Select State"
+                                                />
                                                 {errors[`state-${sectionIndex}-${fieldIndex}`] && (
-                                                    <div className="invalid-feedback">{errors[`state-${sectionIndex}-${fieldIndex}`]}</div>
+                                                    <div className="text-danger small mt-1">
+                                                        {errors[`state-${sectionIndex}-${fieldIndex}`]}
+                                                    </div>
                                                 )}
                                             </div>
                                             <div className="col-md-4">
@@ -207,7 +215,7 @@ const Df = () => {
                                                     <div className="invalid-feedback">{errors[`address-${sectionIndex}-${fieldIndex}`]}</div>
                                                 )}
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-md-4 rmve">
                                                 {section.fields.length > 1 && (
                                                     <button
                                                         onClick={() => removeField(sectionIndex, fieldIndex)}
