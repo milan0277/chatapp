@@ -53,6 +53,7 @@ const Login = () => {
                     <div className="card-body login-card-body">
                         <p className="login-box-msg">Sign in to start your session</p>
                         <form onSubmit={handleSubmit(onSubmit)}  method="post">
+                        {errors.email && <span style={{ display: "flex", color: "red", fontSize: "14px" }} className=''>{errors.email.message}</span>}
                             <div className="input-group mb-3">
                                 <input type="email" className="form-control" placeholder="Email"  {...register("email", {
                                     required: {
@@ -71,8 +72,7 @@ const Login = () => {
                                     </div>
                                 </div>
                             </div>
-                            {errors.email && <span style={{ display: "flex", color: "red", fontSize: "14px" }}>{errors.email.message}</span>}
-                          
+                            {errors.password && <span style={{ display: "flex", color: "red", fontSize: "14px" }} className=''>{errors.password.message}</span>}
                             <div className="input-group mb-3">
                                 <input type="password" className="form-control" placeholder="Password" {...register("password", {
                                     required: {
@@ -86,7 +86,6 @@ const Login = () => {
                                     </div>
                                 </div>
                             </div>
-                            {errors.password && <span style={{ display: "flex", color: "red", fontSize: "14px" }}>{errors.password.message}</span>}
                             <div className="row ">
                                  <div className="col-8">
                                     <div className="icheck-primary">

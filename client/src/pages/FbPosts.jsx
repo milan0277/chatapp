@@ -18,12 +18,13 @@ const FbPosts = () => {
   const [showImage, setShowImage] = useState("");
   const fileInputRef = useRef(null);
   const [image, setImage] = useState(null)
+  const [attachmentName, setAttachmentName] = useState("")
   const [postText, setPostText] = useState("")
   // const [loader, setLoader] = useState(false)
   const [postButtonDisable, setPostButtonDisable] = useState(false)
   const pageId = process.env.REACT_APP_PAGE_ID;
   const access_token = process.env.REACT_APP_ACCESS_TOKEN;
-  const fb_url = process.env.REACT_APP_FB_URL;
+  // const fb_url = process.env.REACT_APP_FB_URL;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -32,11 +33,14 @@ const FbPosts = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
+    console.log(file);
+
     if (file) {
       e.target.value = ""
       const imageUrl = URL.createObjectURL(file);
       setShowImage(imageUrl)
       setImage(file)
+      setAttachmentName(file?.name)
     }
   };
 
@@ -136,7 +140,7 @@ const FbPosts = () => {
 
   const getAllPosts = async () => {
     try {
-      
+
       // const res = await axios.get(`${process.env.REACT_APP_FB_URL}/${process.env.REACT_APP_PAGE_ID}/feed?fields=message,comments{message,from,created_time,reply},full_picture,created_timecomments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=${process.env.REACT_APP_ACCESS_TOKEN}`,)
       // const res = await axios.get(`https://graph.facebook.com/v22.0/654090954443972/feed?fields=message,comments{message,from,created_time,reply},full_picture,created_timecomments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAAJysNOfufkBOxIEoneY9cNgZCfiZCMyQEdu9pjoSwHmbpZCmLgE5s0AAFuVAY600a7Y0Uv0ehnMoS063K8f8yf7tbQ0WYZABu6mwgzLMx4WZCi9OZAOUrE6uz377AzSMysVZAKd0HcCg6W11MVdlvexT0fiYzo3JslSZCW4Up6pyA4yr9lHzGw7ECCrhRLvtB1uw6kM2RqmXtX9hmxsRnv00ZBnL`)
       // console.log("res : ", res)
@@ -149,21 +153,27 @@ const FbPosts = () => {
 
 
   useEffect(() => {
-    console.log("fb_url :",process.env.REACT_APP_FB_URL)
-      console.log("page Id :",process.env.REACT_APP_PAGE_ID)
-      console.log("access_token :",process.env.REACT_APP_ACCESS_TOKEN)
+    // console.log("fb_url :", process.env.REACT_APP_FB_URL)
+    // console.log("page Id :", process.env.REACT_APP_PAGE_ID)
+    // console.log("access_token :", process.env.REACT_APP_ACCESS_TOKEN)
     getAllPosts()
   }, [])
 
   return (
-    <Card style={{ height: "30rem" }}>
+    <Card className='c11'>
 
       {/* part 1 */}
-      <Card.Title style={{ borderBottom: "2px solid white", display: "flex" }}><h3 style={{ margin: "10px" }}>FaceBook Posts</h3><button style={{ height: "50%", marginTop: "1%", marginLeft: "50%", backgroundColor: "skyblue" }} onClick={handleShow} className='primary'>GetPendingPosts&Comments</button><button style={{ height: "50%", marginTop: "1%", marginLeft: "2%", backgroundColor: "skyblue" }} onClick={getAllPosts}>GetLatestPosts</button></Card.Title>
+      <Card.Title className='ct d-flex justify-content-between align-items-center mt-1'>
+        <h3 className='ml-1'>FaceBook Posts</h3>
+        <div className="d-flex gap-3 ">
+          <button className="btn btn-primary mr-2" onClick={handleShow}>GetPendingPosts&Comments</button>
+          <button className="btn btn-primary b2 mr-1" onClick={getAllPosts}>GetLatestPosts</button>
+        </div>
+      </Card.Title>
 
 
       {/* part 2 */}
-      <div style={{ height: "22rem", overflow: "auto" }}>
+      <div className='c2'>
 
         {
           fbPosts != null ?
@@ -210,9 +220,9 @@ const FbPosts = () => {
               )
             })
 
-            : <div className='mt-5 CNI'>Currently not in use</div>
+            : <div className='cniu'>Currently not in use</div>
         }
-{/* <div className="spinner-wrapper"><div className="spinner"></div></div> */}
+        {/* <div className="spinner-wrapper"><div className="spinner"></div></div> */}
       </div>
 
 
@@ -225,15 +235,15 @@ const FbPosts = () => {
           onChange={(e) => setPostText(e.target.value)}
           placeholder="Write something "
         />
-        <div style={{ border: "2px solid black", height: "60%", width: "17%", marginLeft: "1%", marginTop: "1%" }}>
+        <div className='s1'>
           {
-            showImage ? <><img src={showImage} style={{ height: "100%", width: "100%" }} /></> : <span style={{ display: "flex", justifyContent: "center" }}>attachments..</span>
+            showImage ? <p className='atch'>{attachmentName}</p> : <span style={{ display: "flex", justifyContent: "center" }}>attachments..</span>
           }
         </div>
 
         <button
           onClick={triggerFileInput}
-          className="btn btn-sm btn-outline-secondary"
+          className="btn  btn-outline-secondary"
           style={{ height: "50%", width: "15%", marginTop: "1.5%", marginLeft: "0.5%", fontWeight: "bolder" }}
         >
           Add Image

@@ -54,3 +54,40 @@
     font-size: 6rem;
     margin-left: 3rem
 }
+
+
+
+
+.c11{
+    height: 30rem;
+    width: 100%;
+}
+
+.c2{
+    height: 100%;
+}
+
+.cniu{
+    margin-top: 5%;
+    margin-left: 35%;
+    font-size: 3rem;
+}
+
+.ct{
+    display: flex;
+    gap: 3;
+}
+
+.atch{
+    display: flex;
+    justify-content: center;
+    color: red;
+}
+
+.s1{
+    border: 2px solid black;
+    height: 60%;
+    width: 17%;
+    margin-top: 1%;
+    margin-left: 1%;
+}
